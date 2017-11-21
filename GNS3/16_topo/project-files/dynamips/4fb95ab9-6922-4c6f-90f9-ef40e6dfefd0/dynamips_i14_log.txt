@@ -1,0 +1,29 @@
+Nov 21 17:20:10.123 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Nov 21 17:20:10.124 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 57241.
+Nov 21 17:20:10.615 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 21 17:20:10.616 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\16_topo\project-files\dynamips 
+Nov 21 17:20:10.616 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\16_topo\project-files\dynamips
+Nov 21 17:20:10.616 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\16_topo\project-files\dynamips\4fb95ab9-6922-4c6f-90f9-ef40e6dfefd0 
+Nov 21 17:20:10.617 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\16_topo\project-files\dynamips\4fb95ab9-6922-4c6f-90f9-ef40e6dfefd0
+Nov 21 17:20:10.617 HYPERVISOR: exec_cmd: vm create R14 14 c3725 
+Nov 21 17:20:10.618 VM: VM R14 created.
+Nov 21 17:20:10.619 HYPERVISOR: exec_cmd: vm set_con_tcp_port R14 5040 
+Nov 21 17:20:10.619 HYPERVISOR: exec_cmd: c3725 get_mac_addr R14 
+Nov 21 17:20:10.619 HYPERVISOR: exec_cmd: vm set_disk0 R14 0 
+Nov 21 17:20:10.619 HYPERVISOR: exec_cmd: vm set_exec_area R14 64 
+Nov 21 17:20:10.620 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 21 17:20:10.620 HYPERVISOR: exec_cmd: vm set_idle_pc R14 0x60bf8ba0 
+Nov 21 17:20:10.622 HYPERVISOR: exec_cmd: vm set_ios R14 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 21 17:20:10.622 HYPERVISOR: exec_cmd: c3725 set_mac_addr R14 c20e.3b6c.0000 
+Nov 21 17:20:10.622 HYPERVISOR: exec_cmd: vm set_nvram R14 256 
+Nov 21 17:20:10.623 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 21 17:20:10.623 HYPERVISOR: exec_cmd: vm slot_add_binding R14 1 0 NM-16ESW 
+Nov 21 17:20:20.476 HYPERVISOR: exec_cmd: nio create_udp udp-3374f122-c686-4e05-910a-4293fbf15c60 10086 127.0.0.1 10087 
+Nov 21 17:20:21.012 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R14 1 2 udp-3374f122-c686-4e05-910a-4293fbf15c60 
+Nov 21 17:20:21.012 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 21 17:20:21.729 HYPERVISOR: exec_cmd: nio create_udp udp-e5046312-7208-4f6e-83ac-1a2aacd835d3 10100 127.0.0.1 10101 
+Nov 21 17:20:21.731 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R14 1 0 udp-e5046312-7208-4f6e-83ac-1a2aacd835d3 
+Nov 21 17:20:21.731 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 21 17:20:21.995 HYPERVISOR: exec_cmd: nio create_udp udp-045c6259-b131-45b4-97d5-91d1eb336d5c 10116 127.0.0.1 10117 
+Nov 21 17:20:21.998 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R14 1 1 udp-045c6259-b131-45b4-97d5-91d1eb336d5c 
+Nov 21 17:20:21.998 HYPERVISOR: exec_cmd: vm get_status R14 
