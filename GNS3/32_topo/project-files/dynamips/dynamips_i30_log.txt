@@ -1,0 +1,36 @@
+Nov 22 00:03:47.254 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Nov 22 00:03:47.255 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 64349.
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips 
+Nov 22 00:03:47.761 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\21079b6f-382e-4bb6-977a-64b587577362 
+Nov 22 00:03:47.761 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\21079b6f-382e-4bb6-977a-64b587577362
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: vm create R30 30 c3725 
+Nov 22 00:03:47.761 VM: VM R30 created.
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: vm set_con_tcp_port R30 5029 
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: c3725 get_mac_addr R30 
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: vm set_disk0 R30 0 
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: vm set_exec_area R30 64 
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: vm get_status R30 
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: vm set_idle_pc R30 0x60bf8ba0 
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: vm set_ios R30 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 22 00:03:47.761 HYPERVISOR: exec_cmd: vm set_nvram R30 256 
+Nov 22 00:04:03.082 HYPERVISOR: exec_cmd: vm set_ios R30 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 22 00:11:33.809 HYPERVISOR: exec_cmd: vm set_ios R30 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 22 00:11:58.481 HYPERVISOR: exec_cmd: vm get_status R30 
+Nov 22 00:11:58.497 HYPERVISOR: exec_cmd: vm slot_add_binding R30 1 0 NM-16ESW 
+Nov 22 00:27:17.079 HYPERVISOR: exec_cmd: nio create_udp udp-1ad3e24f-9d05-4fb1-8760-1db9799409cf 10190 127.0.0.1 10191 
+Nov 22 00:27:17.617 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R30 0 0 udp-1ad3e24f-9d05-4fb1-8760-1db9799409cf 
+Nov 22 00:27:17.618 HYPERVISOR: exec_cmd: vm get_status R30 
+Nov 22 00:27:22.136 HYPERVISOR: exec_cmd: vm get_status R30 
+Nov 22 00:27:22.137 HYPERVISOR: exec_cmd: vm slot_remove_nio_binding R30 0 0 
+Nov 22 00:27:22.138 HYPERVISOR: exec_cmd: nio delete udp-1ad3e24f-9d05-4fb1-8760-1db9799409cf 
+Nov 22 00:27:26.799 HYPERVISOR: exec_cmd: nio create_udp udp-730c8e37-40f8-4a5e-850e-18cd7673c80f 10190 127.0.0.1 10191 
+Nov 22 00:27:26.802 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R30 1 1 udp-730c8e37-40f8-4a5e-850e-18cd7673c80f 
+Nov 22 00:27:26.802 HYPERVISOR: exec_cmd: vm get_status R30 
+Nov 22 00:27:30.201 HYPERVISOR: exec_cmd: nio create_udp udp-c80e6ed5-3863-408b-a953-866d1fa3c385 10194 127.0.0.1 10195 
+Nov 22 00:27:30.203 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R30 1 0 udp-c80e6ed5-3863-408b-a953-866d1fa3c385 
+Nov 22 00:27:30.204 HYPERVISOR: exec_cmd: vm get_status R30 
+Nov 22 00:27:47.893 HYPERVISOR: exec_cmd: nio create_udp udp-cfdba676-3c57-45c4-9dee-6755faff480e 10214 127.0.0.1 10215 
+Nov 22 00:27:47.896 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R30 1 3 udp-cfdba676-3c57-45c4-9dee-6755faff480e 
+Nov 22 00:27:47.896 HYPERVISOR: exec_cmd: vm get_status R30 
