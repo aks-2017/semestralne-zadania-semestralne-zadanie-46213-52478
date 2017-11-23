@@ -1,36 +1,74 @@
-Nov 21 23:48:40.187 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
-Nov 21 23:48:40.189 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 63969.
-Nov 21 23:48:40.316 HYPERVISOR: exec_cmd: hypervisor version 
-Nov 21 23:48:40.317 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips 
-Nov 21 23:48:40.402 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips
-Nov 21 23:48:40.402 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\56922d07-a0aa-440d-9b16-cf13edc8aca0 
-Nov 21 23:48:40.403 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\56922d07-a0aa-440d-9b16-cf13edc8aca0
-Nov 21 23:48:40.403 HYPERVISOR: exec_cmd: vm create R1 1 c3725 
-Nov 21 23:48:40.405 VM: VM R1 created.
-Nov 21 23:48:40.405 HYPERVISOR: exec_cmd: vm set_con_tcp_port R1 5000 
-Nov 21 23:48:40.406 HYPERVISOR: exec_cmd: c3725 get_mac_addr R1 
-Nov 21 23:48:40.406 HYPERVISOR: exec_cmd: vm set_disk0 R1 0 
-Nov 21 23:48:40.407 HYPERVISOR: exec_cmd: vm set_exec_area R1 64 
-Nov 21 23:48:40.407 HYPERVISOR: exec_cmd: vm get_status R1 
-Nov 21 23:48:40.407 HYPERVISOR: exec_cmd: vm set_idle_pc R1 0x60bf8ba0 
-Nov 21 23:48:40.408 HYPERVISOR: exec_cmd: vm set_ios R1 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
-Nov 21 23:48:40.408 HYPERVISOR: exec_cmd: vm set_nvram R1 256 
-Nov 22 00:03:55.969 HYPERVISOR: exec_cmd: vm set_ios R1 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
-Nov 22 00:04:00.365 HYPERVISOR: exec_cmd: vm set_ios R1 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
-Nov 22 00:05:39.666 HYPERVISOR: exec_cmd: vm set_ios R1 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
-Nov 22 00:05:40.370 HYPERVISOR: exec_cmd: vm set_ios R1 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
-Nov 22 00:05:40.832 HYPERVISOR: exec_cmd: vm set_ios R1 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
-Nov 22 00:11:56.194 HYPERVISOR: exec_cmd: vm get_status R1 
-Nov 22 00:11:56.210 HYPERVISOR: exec_cmd: vm slot_add_binding R1 1 0 NM-16ESW 
-Nov 22 00:12:01.236 HYPERVISOR: exec_cmd: nio create_udp udp-f663b83b-2e7d-42ee-bd5c-1a74c3a3e020 10002 127.0.0.1 10003 
-Nov 22 00:12:01.799 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 1 0 udp-f663b83b-2e7d-42ee-bd5c-1a74c3a3e020 
-Nov 22 00:12:01.799 HYPERVISOR: exec_cmd: vm get_status R1 
-Nov 22 00:19:07.195 HYPERVISOR: exec_cmd: vm get_status R1 
-Nov 22 00:19:07.196 HYPERVISOR: exec_cmd: vm slot_remove_nio_binding R1 1 0 
-Nov 22 00:19:07.197 HYPERVISOR: exec_cmd: nio delete udp-f663b83b-2e7d-42ee-bd5c-1a74c3a3e020 
-Nov 22 00:19:11.052 HYPERVISOR: exec_cmd: nio create_udp udp-469781d8-6bd8-44ba-a08b-2ebeaac92818 10002 127.0.0.1 10003 
-Nov 22 00:19:11.055 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 1 0 udp-469781d8-6bd8-44ba-a08b-2ebeaac92818 
-Nov 22 00:19:11.056 HYPERVISOR: exec_cmd: vm get_status R1 
-Nov 22 00:25:28.972 HYPERVISOR: exec_cmd: nio create_udp udp-253d7ccf-9a09-4ee9-8454-19dc831f2a6d 10110 127.0.0.1 10111 
-Nov 22 00:25:28.975 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 1 1 udp-253d7ccf-9a09-4ee9-8454-19dc831f2a6d 
-Nov 22 00:25:28.976 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 19:31:21.161 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Nov 23 19:31:21.162 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 62807.
+Nov 23 19:31:21.312 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 23 19:31:21.313 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips 
+Nov 23 19:31:21.432 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips
+Nov 23 19:31:21.432 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\56922d07-a0aa-440d-9b16-cf13edc8aca0 
+Nov 23 19:31:21.432 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\56922d07-a0aa-440d-9b16-cf13edc8aca0
+Nov 23 19:31:21.432 HYPERVISOR: exec_cmd: vm create R1 1 c3725 
+Nov 23 19:31:21.435 VM: VM R1 created.
+Nov 23 19:31:21.435 HYPERVISOR: exec_cmd: vm set_con_tcp_port R1 5000 
+Nov 23 19:31:21.435 HYPERVISOR: exec_cmd: c3725 get_mac_addr R1 
+Nov 23 19:31:21.435 HYPERVISOR: exec_cmd: vm set_disk0 R1 0 
+Nov 23 19:31:21.435 HYPERVISOR: exec_cmd: vm set_exec_area R1 64 
+Nov 23 19:31:21.435 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 19:31:21.435 HYPERVISOR: exec_cmd: vm set_idle_pc R1 0x60bf8ba0 
+Nov 23 19:31:21.436 HYPERVISOR: exec_cmd: vm set_ios R1 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 23 19:31:21.437 HYPERVISOR: exec_cmd: c3725 set_mac_addr R1 c201.4420.0000 
+Nov 23 19:31:21.437 HYPERVISOR: exec_cmd: vm set_nvram R1 256 
+Nov 23 19:31:21.437 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 19:31:21.438 HYPERVISOR: exec_cmd: vm slot_add_binding R1 1 0 NM-16ESW 
+Nov 23 19:31:38.105 HYPERVISOR: exec_cmd: nio create_udp udp-4334a6b6-eb8f-44d3-8717-84ea22457bfc 10002 127.0.0.1 10003 
+Nov 23 19:31:38.644 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 1 0 udp-4334a6b6-eb8f-44d3-8717-84ea22457bfc 
+Nov 23 19:31:38.645 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 19:31:49.527 HYPERVISOR: exec_cmd: nio create_udp udp-d921cca2-f833-46c1-896e-12f873d453ae 10110 127.0.0.1 10111 
+Nov 23 19:31:49.529 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 1 1 udp-d921cca2-f833-46c1-896e-12f873d453ae 
+Nov 23 19:31:49.529 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 19:32:09.834 HYPERVISOR: exec_cmd: vm create Ghost 0 c3725 
+Nov 23 19:32:09.835 VM: VM Ghost created.
+Nov 23 19:32:09.835 HYPERVISOR: exec_cmd: vm set_ios Ghost C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 23 19:32:09.836 HYPERVISOR: exec_cmd: vm set_ghost_status Ghost 1 
+Nov 23 19:32:09.836 HYPERVISOR: exec_cmd: vm set_ghost_file Ghost 'D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\c3725-adventerprisek9-mz124-15.image-128.ghost' 
+Nov 23 19:32:09.837 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Nov 23 19:32:09.837 HYPERVISOR: exec_cmd: vm set_config Ghost configs\i0_startup-config.cfg 
+Nov 23 19:32:09.837 HYPERVISOR: exec_cmd: vm start Ghost 
+Nov 23 19:32:10.100 HYPERVISOR: exec_cmd: vm clean_delete Ghost 
+Nov 23 19:32:10.252 VM: VM Ghost shutdown.
+Nov 23 19:32:10.252 VM: VM Ghost destroyed.
+Nov 23 19:32:10.258 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 19:32:10.260 HYPERVISOR: exec_cmd: vm set_config R1 configs\i1_startup-config.cfg 
+Nov 23 19:32:10.261 HYPERVISOR: exec_cmd: vm start R1 
+Nov 23 19:32:40.654 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 19:32:40.661 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 21:15:44.060 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 21:15:44.065 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 21:48:08.742 HYPERVISOR: exec_cmd: nio create_udp udp-b25f601d-ca1c-4788-b6cb-1fafca981416 10254 127.0.0.1 10255 
+Nov 23 21:48:08.747 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 0 0 udp-b25f601d-ca1c-4788-b6cb-1fafca981416 
+Nov 23 21:48:08.748 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 21:48:08.748 HYPERVISOR: exec_cmd: vm slot_enable_nio R1 0 0 
+Nov 23 23:17:51.267 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 23:17:51.267 HYPERVISOR: exec_cmd: vm stop R1 
+Nov 23 23:17:51.402 VM: VM R1 shutdown.
+Nov 23 23:17:51.403 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 23:17:54.722 HYPERVISOR: exec_cmd: vm create Ghost 0 c3725 
+Nov 23 23:17:54.723 VM: VM Ghost created.
+Nov 23 23:17:54.724 HYPERVISOR: exec_cmd: vm set_ios Ghost C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 23 23:17:54.724 HYPERVISOR: exec_cmd: vm set_ghost_status Ghost 1 
+Nov 23 23:17:54.725 HYPERVISOR: exec_cmd: vm set_ghost_file Ghost 'D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\c3725-adventerprisek9-mz124-15.image-128.ghost' 
+Nov 23 23:17:54.725 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Nov 23 23:17:54.728 HYPERVISOR: exec_cmd: vm set_config Ghost configs\i0_startup-config.cfg 
+Nov 23 23:17:54.729 HYPERVISOR: exec_cmd: vm start Ghost 
+Nov 23 23:17:55.231 HYPERVISOR: exec_cmd: vm clean_delete Ghost 
+Nov 23 23:17:55.334 VM: VM Ghost shutdown.
+Nov 23 23:17:55.334 VM: VM Ghost destroyed.
+Nov 23 23:17:55.346 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 23:17:55.347 HYPERVISOR: exec_cmd: vm set_config R1 configs\i1_startup-config.cfg 
+Nov 23 23:17:55.347 HYPERVISOR: exec_cmd: vm start R1 
+Nov 23 23:18:25.746 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 23:18:25.752 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 23:22:25.769 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 23:22:25.777 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 23 23:39:44.687 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 23 23:39:44.689 HYPERVISOR: exec_cmd: vm stop R1 
+Nov 23 23:39:44.855 VM: VM R1 shutdown.
+Nov 23 23:39:44.856 HYPERVISOR: exec_cmd: vm extract_config R1 

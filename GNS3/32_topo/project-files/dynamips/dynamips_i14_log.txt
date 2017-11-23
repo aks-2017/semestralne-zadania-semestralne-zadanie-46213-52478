@@ -1,26 +1,48 @@
-Nov 22 00:00:13.156 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
-Nov 22 00:00:13.156 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 64197.
-Nov 22 00:00:13.657 HYPERVISOR: exec_cmd: hypervisor version 
-Nov 22 00:00:13.657 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips 
-Nov 22 00:00:13.657 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips
-Nov 22 00:00:13.657 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\2afbba11-b9d1-4621-80bb-75e31fba130c 
-Nov 22 00:00:13.657 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\2afbba11-b9d1-4621-80bb-75e31fba130c
-Nov 22 00:00:13.657 HYPERVISOR: exec_cmd: vm create R14 14 c3725 
-Nov 22 00:00:13.695 VM: VM R14 created.
-Nov 22 00:00:13.695 HYPERVISOR: exec_cmd: vm set_con_tcp_port R14 5013 
-Nov 22 00:00:13.695 HYPERVISOR: exec_cmd: c3725 get_mac_addr R14 
-Nov 22 00:00:13.695 HYPERVISOR: exec_cmd: vm set_disk0 R14 0 
-Nov 22 00:00:13.695 HYPERVISOR: exec_cmd: vm set_exec_area R14 64 
-Nov 22 00:00:13.695 HYPERVISOR: exec_cmd: vm get_status R14 
-Nov 22 00:00:13.695 HYPERVISOR: exec_cmd: vm set_idle_pc R14 0x60bf8ba0 
-Nov 22 00:00:13.695 HYPERVISOR: exec_cmd: vm set_ios R14 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
-Nov 22 00:00:13.695 HYPERVISOR: exec_cmd: vm set_nvram R14 256 
-Nov 22 00:08:45.398 HYPERVISOR: exec_cmd: vm set_ios R14 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
-Nov 22 00:11:56.194 HYPERVISOR: exec_cmd: vm get_status R14 
-Nov 22 00:11:56.210 HYPERVISOR: exec_cmd: vm slot_add_binding R14 1 0 NM-16ESW 
-Nov 22 00:26:09.343 HYPERVISOR: exec_cmd: nio create_udp udp-7f4063c4-c1f6-4fa6-9c87-f3d6bf8afe72 10130 127.0.0.1 10131 
-Nov 22 00:26:09.882 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R14 1 0 udp-7f4063c4-c1f6-4fa6-9c87-f3d6bf8afe72 
-Nov 22 00:26:09.883 HYPERVISOR: exec_cmd: vm get_status R14 
-Nov 22 00:26:15.171 HYPERVISOR: exec_cmd: nio create_udp udp-23bea4d5-6aef-4e1f-8a66-0f2c1d7ad873 10136 127.0.0.1 10137 
-Nov 22 00:26:15.175 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R14 1 1 udp-23bea4d5-6aef-4e1f-8a66-0f2c1d7ad873 
-Nov 22 00:26:15.175 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 23 19:31:27.876 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Nov 23 19:31:27.877 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 62849.
+Nov 23 19:31:28.370 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 23 19:31:28.371 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips 
+Nov 23 19:31:28.371 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips
+Nov 23 19:31:28.371 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\2afbba11-b9d1-4621-80bb-75e31fba130c 
+Nov 23 19:31:28.372 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\2afbba11-b9d1-4621-80bb-75e31fba130c
+Nov 23 19:31:28.372 HYPERVISOR: exec_cmd: vm create R14 14 c3725 
+Nov 23 19:31:28.373 VM: VM R14 created.
+Nov 23 19:31:28.373 HYPERVISOR: exec_cmd: vm set_con_tcp_port R14 5013 
+Nov 23 19:31:28.374 HYPERVISOR: exec_cmd: c3725 get_mac_addr R14 
+Nov 23 19:31:28.375 HYPERVISOR: exec_cmd: vm set_disk0 R14 0 
+Nov 23 19:31:28.375 HYPERVISOR: exec_cmd: vm set_exec_area R14 64 
+Nov 23 19:31:28.375 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 23 19:31:28.375 HYPERVISOR: exec_cmd: vm set_idle_pc R14 0x60bf8ba0 
+Nov 23 19:31:28.376 HYPERVISOR: exec_cmd: vm set_ios R14 C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 23 19:31:28.376 HYPERVISOR: exec_cmd: c3725 set_mac_addr R14 c20e.2590.0000 
+Nov 23 19:31:28.377 HYPERVISOR: exec_cmd: vm set_nvram R14 256 
+Nov 23 19:31:28.377 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 23 19:31:28.377 HYPERVISOR: exec_cmd: vm slot_add_binding R14 1 0 NM-16ESW 
+Nov 23 19:31:51.557 HYPERVISOR: exec_cmd: nio create_udp udp-160d161f-2cf8-46ea-b466-5ea5be3e80c0 10130 127.0.0.1 10131 
+Nov 23 19:31:52.090 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R14 1 0 udp-160d161f-2cf8-46ea-b466-5ea5be3e80c0 
+Nov 23 19:31:52.091 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 23 19:31:52.753 HYPERVISOR: exec_cmd: nio create_udp udp-a23128f3-ed15-4ede-ba15-323cc6fa8d4e 10136 127.0.0.1 10137 
+Nov 23 19:31:52.755 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R14 1 1 udp-a23128f3-ed15-4ede-ba15-323cc6fa8d4e 
+Nov 23 19:31:52.756 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 23 19:32:18.351 HYPERVISOR: exec_cmd: vm create Ghost 0 c3725 
+Nov 23 19:32:18.353 VM: VM Ghost created.
+Nov 23 19:32:18.354 HYPERVISOR: exec_cmd: vm set_ios Ghost C:/Users/Yak/GNS3/images/IOS/c3725-adventerprisek9-mz124-15.image 
+Nov 23 19:32:18.355 HYPERVISOR: exec_cmd: vm set_ghost_status Ghost 1 
+Nov 23 19:32:18.355 HYPERVISOR: exec_cmd: vm set_ghost_file Ghost 'D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\32_topo\project-files\dynamips\c3725-adventerprisek9-mz124-15.image-128.ghost' 
+Nov 23 19:32:18.355 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Nov 23 19:32:18.356 HYPERVISOR: exec_cmd: vm set_config Ghost configs\i0_startup-config.cfg 
+Nov 23 19:32:18.356 HYPERVISOR: exec_cmd: vm start Ghost 
+Nov 23 19:32:18.791 HYPERVISOR: exec_cmd: vm clean_delete Ghost 
+Nov 23 19:32:18.956 VM: VM Ghost shutdown.
+Nov 23 19:32:18.956 VM: VM Ghost destroyed.
+Nov 23 19:32:19.021 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 23 19:32:19.023 HYPERVISOR: exec_cmd: vm set_config R14 configs\i14_startup-config.cfg 
+Nov 23 19:32:19.023 HYPERVISOR: exec_cmd: vm start R14 
+Nov 23 19:32:50.119 HYPERVISOR: exec_cmd: vm extract_config R14 
+Nov 23 19:32:50.127 HYPERVISOR: exec_cmd: vm extract_config R14 
+Nov 23 21:15:52.900 HYPERVISOR: exec_cmd: vm extract_config R14 
+Nov 23 21:15:52.919 HYPERVISOR: exec_cmd: vm extract_config R14 
+Nov 23 23:39:45.314 HYPERVISOR: exec_cmd: vm get_status R14 
+Nov 23 23:39:45.314 HYPERVISOR: exec_cmd: vm stop R14 
+Nov 23 23:39:45.437 VM: VM R14 shutdown.
+Nov 23 23:39:45.438 HYPERVISOR: exec_cmd: vm extract_config R14 
