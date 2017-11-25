@@ -429,7 +429,8 @@ class RestRouterAPI(app_manager.RyuApp):
                 #print "[GET]", call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
 
                 print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                return subprocess.Popen('/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh').pid
+                joj = subprocess.Popen('/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh')
+                return joj.pid
                 #os.system("/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh")
                 #print "[DELETE]", call(["curl", "-X DELETE", "-d {\"route_id\": \"all\"}", "-v", "http://localhost:8080/router/all", "--trace-ascii", "/dev/stdout"]) #"http://localhost:8080/router/all"])
 
@@ -590,26 +591,27 @@ class RestRouterAPI(app_manager.RyuApp):
                 pid = zmaz_routy(routes_list)
 
                 print type(pid)
-
+                temper = 0
                 print "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
                 p = psutil.Process(int(pid))
-                print "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg\n", p.status
+                print "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg\n", p.status()
                 while True:
-                    if p.status == psutil.STATUS_DEAD:
-                        print "333GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg\n", p.status, p.is_running(), psutil.STATUS_DEAD
+                    p = psutil.Process(int(pid))
+                    if p.status() == psutil.STATUS_ZOMBIE:
+                        print "333GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg\n", p.status(), p.is_running()
+                        posli_routy(routes_list)
                         break
                     else:
-                        print "este nezdochol"
+                        print "este nezdochol ", temper
+                        temper = temper + 1
+                        time.sleep(0.1)
+                        if temper == 500:
+                            break
 
 
 
             if path != [] and self.last_path != path:
-                #print "11GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg", p.status
                 posli_routy(routes_list)
-                #print "22GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg", p.status
-                # time.sleep(10)
-                # if p != None:
-                #     print "333GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg", p.status
 
             self.last_path = path
 
