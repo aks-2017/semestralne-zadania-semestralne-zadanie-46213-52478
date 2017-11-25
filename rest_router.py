@@ -57,7 +57,14 @@ from itertools import izip, islice
 import ipaddress
 from ipaddress import ip_address, ip_network
 from netaddr import IPNetwork
+import sys
 import os
+from subprocess import check_output
+import urllib2
+import subprocess
+import threading
+import psutil
+import time
 
 # =============================
 #          REST API
@@ -107,7 +114,6 @@ import os
 #    parameter = {"route_id": "<int>"} or {"route_id": "all"}
 #
 #
-
 
 UINT16_MAX = 0xffff
 UINT32_MAX = 0xffffffff
@@ -173,6 +179,7 @@ PRIORITY_IP_HANDLING = 5
 PRIORITY_TYPE_ROUTE = 'priority_route'
 
 
+
 def get_priority(priority_type, vid=0, route=None):
     log_msg = None
     priority = priority_type
@@ -224,7 +231,8 @@ class RestRouterAPI(app_manager.RyuApp):
 
     def __init__(self, *args, **kwargs):
         super(RestRouterAPI, self).__init__(*args, **kwargs)
-
+        global self_global
+        self_global = self
         # logger configure
         RouterController.set_logger(self.logger)
 
@@ -365,11 +373,100 @@ class RestRouterAPI(app_manager.RyuApp):
                     #print "[Cont] |||||||||||||||||", call_curl("POST ", set_routes(siet, gw), device_id)
                     call_curl("POST ", set_routes(siet, gw), device_id)
 
+        def _make_request(url, data, method):
+            call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
+            #print "[Cont] ||||||||||||||||", call_curl("DELETE", del_routes("all"), "0000000000000001")
+            opener = urllib2.build_opener(urllib2.HTTPHandler)
+            request = urllib2.Request(url, data=data)
+            #request.add_header('Content-Type', 'your/contenttype')
+            request.get_method = lambda: method
+            url = opener.open(request)
+            print url
+
+        def _make_request1(url, data, method):
+            # call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
+            # print "[Cont] ||||||||||||||||", call_curl("DELETE", del_routes("all"), "0000000000000001")
+            opener = urllib2.build_opener(urllib2.HTTPHandler)
+            request = urllib2.Request(url, data=data)
+            # request.add_header('Content-Type', 'your/contenttype')
+            request.get_method = lambda: method
+            print "az sem som sa dostal"
+            print os.environ['HOME']
+            print sys.version
+            print sys.api_version
+            print sys.path
+            print sys.argv
+            print sys.builtin_module_names
+            print sys.flags
+            print sys.exec_prefix
+            print sys.executable
+            print sys.platform
+            print sys.pydebug
+            print sys.version_info
+            # print "[DELETE]", call(["curl", "-v", "-X DELETE", "-d {\"route_id\": \"all\"}", "http://localhost:8080/router/all"])
+            url = urllib2.urlopen(request)
+            print "a sem tiez"
+            print url
+
         def zmaz_routy(zariadenia):
-            for id_zariadenia, val in zariadenia.items():
-                device_id = id_zariadenia
-                print "[Cont] ||||||||||||||||", call_curld(del_routes("1"), id_zariadenia)
+
+
+            #for id_zariadenia, val in zariadenia.items():
+                #device_id = id_zariadenia
+                #print "[Cont] ||||||||||||||||", call_curld(del_routes("1"), id_zariadenia)
+                #call(["curl", "-X DELETE", "-d {\"route_id\": \"5\"}", "http://localhost:8080/router/0000000000000001"])
+                #call(["curl", "-X DELETE", "-d {\"route_id\": \"1\"}", "http://localhost:8080/router/0000000000000001"])
                 #print "[Cont] ||||||||||||||||", call_curl("DELETE ", del_routes("2"), id_zariadenia)
+                #print "#######################3---------------------################", check_output('curl -X DELETE -d {"route_id": 1 } http://localhost:8080/router/0000000000000001', shell=True)
+
+                print
+                print
+                print
+                print "#######################3---------------------################"
+
+                print #"[DELETE]", _make_request("http://localhost:8080/router/all", "{\"route_id\": \"all\"}", "DELETE")
+                print
+                #print "[GET]", call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
+
+                print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                return subprocess.Popen('/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh').pid
+                #os.system("/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh")
+                #print "[DELETE]", call(["curl", "-X DELETE", "-d {\"route_id\": \"all\"}", "-v", "http://localhost:8080/router/all", "--trace-ascii", "/dev/stdout"]) #"http://localhost:8080/router/all"])
+
+                #print "[DELETE]", _make_request1("http://localhost:8080/router/all", "{\"route_id\": \"all\"}", "DELETE")
+
+                #print "[DELETE]", call(["curl", "-X DELETE", "-d {\"route_id\": \"all\"}", "-v", "http://localhost:8080/router/all","--trace-ascii", "/dev/stdout"])  # "http://localhost:8080/router/all"])
+
+
+                print
+                print
+                print
+                print
+                #print "[GET]", call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
+                print
+                print
+                print
+                print
+                print
+
+            # 3. delete address data or routing data.
+            #
+            # * delete data of no vlan
+            # DELETE /router/{switch_id}
+            #
+            # * delete data of specific vlan group
+            # DELETE /router/{switch_id}/{vlan_id}
+            #
+            #  case1: delete address data.
+            #    parameter = {"address_id": "<int>"} or {"address_id": "all"}
+            #  case2: delete routing data.
+            #    parameter = {"route_id": "<int>"} or {"route_id": "all"}
+            #
+
+
+                #print "#######################3---------------------################", os.system('curl -X DELETE -d "{\"route_id\": \"1\" }" http://localhost:8080/router/0000000000000001')
+
+
 
         def set_routes(siet, gw):
             return "\"destination\": \"" + siet + "\", " + "\"gateway\": \"" + gw + "\""
@@ -381,9 +478,11 @@ class RestRouterAPI(app_manager.RyuApp):
             print "curl", "-X " + action, "-d {" + obsah + "}", "http://localhost:8080/router/" + device_id
             return call(["curl", "-X " + action, "-d {" + obsah + "}", "http://localhost:8080/router/" + device_id])
 
-        def call_curld( obsah, device_id):
-            print "curl", "-X DELETE", "-d {\"route_id\": \"1\"}", "http://localhost:8080/router/" + device_id
-            return call(["curl", "-X DELETE", "-d {\"route_id\": \"1\"}", "http://localhost:8080/router/" + device_id])
+        # def call_curld( obsah, device_id):
+        #     print "curl", "-X DELETE", "-d {\"route_id\": \"1\"}", "http://localhost:8080/router/" + device_id
+        #     return call(["curl", "-X DELETE", "-d {\"route_id\": \"1\"}", "http://localhost:8080/router/" + device_id])
+        #     print "#######################3"
+        #     print check_output("curl-X DELETE -d {\"route_id\": \"1\"} http://localhost:8080/router/" + device_id, shell=True)
 
         def insert_to_routes_list(routes_list, device_id, prvok):
             if device_id in routes_list:
@@ -478,15 +577,49 @@ class RestRouterAPI(app_manager.RyuApp):
                         break
                         # else:
                         # print "No keys found"
-            if self.last_path != path:
-                zmaz_routy(routes_list)
-                self.last_path = path
+            print self.last_path
+            print  path
+            if self.last_path != [] and self.last_path != path:
+                # d = threading.Thread(name='block', target=zmaz_routy, args=(routes_list,))
+                # t = threading.Thread(name='block', target=posli_routy, args=(routes_list,))
+                # d.start()
+                # t.start()
+                # d.join()
+                # t.join()
 
-            posli_routy(routes_list)
+                pid = zmaz_routy(routes_list)
 
+                print type(pid)
+
+                print "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
+                p = psutil.Process(int(pid))
+                print "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg\n", p.status
+                while True:
+                    if p.status == psutil.STATUS_DEAD:
+                        print "333GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg\n", p.status, p.is_running(), psutil.STATUS_DEAD
+                        break
+                    else:
+                        print "este nezdochol"
+
+
+
+            if path != [] and self.last_path != path:
+                #print "11GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg", p.status
+                posli_routy(routes_list)
+                #print "22GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg", p.status
+                # time.sleep(10)
+                # if p != None:
+                #     print "333GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGg", p.status
+
+            self.last_path = path
+
+            print "-----------------------------------------------------------------------------------------------" + sys.version
+            #sys.dont_write_bytecode = False
+            print sys.flags
             self.net.remove_edges_from(links_f)
             self.net.remove_edges_from([(99, 1, {'port': 1}), (1, 99, {'port': 2})])
             self.net.remove_edges_from([(100, 2, {'port': 1}), (2, 100, {'port': 2})])
+
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def packet_in_handler(self, ev):
@@ -529,6 +662,7 @@ def rest_command(func):
     def _rest_command(*args, **kwargs):
         try:
             msg = func(*args, **kwargs)
+            print "msgggg: ", msg
             return Response(content_type='application/json',
                             body=json.dumps(msg))
 
@@ -610,11 +744,11 @@ class RouterController(ControllerBase):
     # POST /router/{switch_id}
     @rest_command
     def set_data(self, req, switch_id, **_kwargs):
-        print "******************************************"
+        print "[SET] ******************************************"
         print self
-        print "req: ", req.body
-        print "switch_id: ", switch_id
-        print "******************************************"
+        print "[SET] req: ", req.body
+        print "[SET] switch_id: ", switch_id
+        print "[SET] ******************************************"
         return self._access_router(switch_id, VLANID_NONE,
                                    'set_data', req.body)
 
@@ -648,10 +782,10 @@ class RouterController(ControllerBase):
         rest_message = []
         routers = self._get_router(switch_id)
         param = json.loads(rest_param) if rest_param else {}
-        print "routers: ", routers
+        # print "routers: ", routers
         for router in routers.values():
             function = getattr(router, func)
-            print "function: ", function
+            # print "function: ", function
             data = function(vlan_id, param, self.waiters)
             rest_message.append(data)
         print "rest_message: ", rest_message
@@ -762,13 +896,13 @@ class Router(dict):
                 REST_NW: msgs}
 
     def set_data(self, vlan_id, param, waiters):
-        print vlan_id
-        print param
-        print "waiters"
-        print waiters
-        print "---self--"
-        print self
-        print"----------------------------------"
+        # print vlan_id
+        # print param
+        # print "waiters"
+        # print waiters
+        # print "---self--"
+        # print self
+        # print"----------------------------------"
         vlan_routers = self._get_vlan_router(vlan_id)
         if not vlan_routers:
             vlan_routers = [self._add_vlan_router(vlan_id)]
@@ -792,19 +926,27 @@ class Router(dict):
     def delete_data(self, vlan_id, param, waiters):
         msgs = []
         vlan_routers = self._get_vlan_router(vlan_id)
-        print "tooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
-        print vlan_id
-        print vlan_routers
-        print param
-        print waiters
+        #waiters = {1: {}, 2: {}, 3: {}, 4: {}}
+        # print "tooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+        # print vlan_id
+        # print vlan_routers
+        # print param
+        # print waiters
         if vlan_routers:
             for vlan_router in vlan_routers:
-                print "vlan : ", vlan_router
+                # print type(vlan_router)
+                # print vlan_router.routing_tbl
+                # print "vlan : ", vlan_router
+                # print "waiters: ", waiters
+                # print vlan_router.vlan_id, vlan_router.get_data
+                # print vlan_router.routing_tbl.get_data()
                 msg = vlan_router.delete_data(param, waiters)
+                # print "msg: ", msg
                 if msg:
                     msgs.append(msg)
                 # Check unnecessary VlanRouter.
                 self._del_vlan_router(vlan_router.vlan_id, waiters)
+        print msgs
         if not msgs:
             msgs = [{REST_RESULT: REST_NG,
                      REST_DETAILS: 'Data is nothing.'}]
@@ -1128,9 +1270,10 @@ class VlanRouter(object):
 
         # Get all flow.
         msgs = self.ofctl.get_all_flow(waiters)
-
+        #print msgs, "\npotom\n", self
         delete_list = []
         for msg in msgs:
+            #print msg
             for stats in msg.body:
                 vlan_id = VlanRouter._cookie_to_id(REST_VLANID, stats.cookie)
                 if vlan_id != self.vlan_id:
@@ -1145,6 +1288,7 @@ class VlanRouter(object):
 
         # Delete flow.
         delete_ids = []
+        #print delete_list
         for flow_stats in delete_list:
             self.ofctl.delete_flow(flow_stats)
             route_id = VlanRouter._cookie_to_id(REST_ROUTEID,
