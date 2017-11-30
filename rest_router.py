@@ -14,26 +14,32 @@
 # limitations under the License.
 
 
+import itertools
+import json
 import logging
+import os
 import socket
 import struct
-
-import json
-from webob import Response
-
+import subprocess
+import sys
+import threading
+import time
+import urllib2
+from itertools import izip, islice
+from netaddr import IPNetwork
 from ryu.app.wsgi import ControllerBase
 from ryu.app.wsgi import WSGIApplication
 from ryu.base import app_manager
 from ryu.controller import dpset
 from ryu.controller import ofp_event
-from ryu.controller.handler import set_ev_cls
 from ryu.controller.handler import MAIN_DISPATCHER
+from ryu.controller.handler import set_ev_cls
 from ryu.exception import OFPUnknownVersion
 from ryu.exception import RyuException
+from ryu.lib import addrconv
 from ryu.lib import dpid as dpid_lib
 from ryu.lib import hub
 from ryu.lib import mac as mac_lib
-from ryu.lib import addrconv
 from ryu.lib.packet import arp
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import icmp
@@ -47,24 +53,16 @@ from ryu.ofproto import inet
 from ryu.ofproto import ofproto_v1_0
 from ryu.ofproto import ofproto_v1_2
 from ryu.ofproto import ofproto_v1_3
-
 from ryu.topology import event
 from ryu.topology.api import get_switch, get_link
 from subprocess import call
-import networkx as nx
-import itertools
-from itertools import izip, islice
-import ipaddress
-from ipaddress import ip_address, ip_network
-from netaddr import IPNetwork
-import sys
-import os
 from subprocess import check_output
-import urllib2
-import subprocess
-import threading
+from webob import Response
+
+import ipaddress
+import networkx as nx
 import psutil
-import time
+from ipaddress import ip_address, ip_network
 
 # =============================
 #          REST API
@@ -177,7 +175,6 @@ PRIORITY_L2_SWITCHING = 4
 PRIORITY_IP_HANDLING = 5
 
 PRIORITY_TYPE_ROUTE = 'priority_route'
-
 
 
 def get_priority(priority_type, vid=0, route=None):
@@ -320,14 +317,65 @@ class RestRouterAPI(app_manager.RyuApp):
                            "0000000000000002": ["172.16.0.2/30", "10.1.2.1/24", "10.1.3.1/24", "172.16.0.10/30"],
                            "0000000000000003": ["172.16.0.6/30", "172.16.0.13/30"],
                            "0000000000000004": ["172.16.0.11/30", "172.16.0.14/30"]}
-            # obsah = set_address("172.16.0.1/30")
-            # device_id = "0000000000000001"
-            # for id_zariadenia,val in zariadenia.items():
-            #     device_id = id_zariadenia
-            #     print device_id
-            #     for ipcka in val:
-            #         print val, "     ", ipcka
-            #         print "janooo", call_curl(set_address(ipcka), device_id)
+
+            zariadenia8 = {"0000000000000001": ["1.5.0.1/24", "1.2.0.1/24", "10.1.1.1/24"],
+                           "0000000000000002": ["2.3.0.1/24", "1.2.0.2/24"],
+                           "0000000000000003": ["3.4.0.1/24", "2.3.0.2/24"],
+                           "0000000000000004": ["4.8.0.1/24", "3.4.0.2/24"],
+                           "0000000000000005": ["5.6.0.1/24", "1.5.0.2/24", "10.1.2.1/24"],
+                           "0000000000000006": ["6.7.0.1/24", "5.6.0.2/24"],
+                           "0000000000000007": ["7.8.0.1/24", "6.7.0.2/24"],
+                           "0000000000000008": ["7.8.0.2/24", "4.8.0.2/24"]}
+
+            zariadenia16 = {"0000000000000001": ["1.2.0.1/24", "1.8.0.1/24", "10.1.1.1/24"],
+                            "0000000000000002": ["1.2.0.2/24", "2.3.0.1/24", "2.13.0.1/24"],
+                            "0000000000000003": ["2.3.0.2/24", "3.4.0.1/24"],
+                            "0000000000000004": ["3.4.0.2/24", "4.5.0.1/24"],
+                            "0000000000000005": ["4.5.0.2/24", "5.6.0.1/24"],
+                            "0000000000000006": ["5.6.0.2/24", "6.7.0.1/24", "14.6.0.2/24"],
+                            "0000000000000007": ["6.7.0.2/24", "12.7.0.2/24", "10.1.2.1/24"],
+                            "0000000000000008": ["1.8.0.2/24", "8.15.0.1/24", "8.9.0.1/24"],
+                            "0000000000000009": ["8.9.0.2/24", "9.10.0.1/24"],
+                            "0000000000000010": ["9.10.0.2/24", "10.11.0.1/24"],
+                            "0000000000000011": ["10.11.0.2/24", "11.12.0.1/24"],
+                            "0000000000000012": ["11.12.0.2/24", "12.7.0.1/24", "16.12.0.2/24"],
+                            "0000000000000013": ["2.13.0.2/24", "13.14.0.1/24", "13.16.0.1/24"],
+                            "0000000000000014": ["13.14.0.2/24", "15.14.0.2/24", "14.6.0.1/24"],
+                            "0000000000000015": ["8.15.0.2/24", "15.14.0.1/24", "15.16.0.1/24"],
+                            "0000000000000016": ["13.16.0.2/24", "15.16.0.2/24", "16.12.0.1/24"]}
+
+            zariadenia32 = {"0000000000000001": ["1.2.0.1/24", "1.11.0.1/24", "10.1.1.1/24"],
+                            "0000000000000002": ["1.2.0.2/24", "2.19.0.1/24", "2.3.0.1/24"],
+                            "0000000000000003": ["2.3.0.2/24", "3.21.0.1/24", "3.4.0.1/24"],
+                            "0000000000000004": ["3.4.0.2/24", "4.5.0.1/24", "4.16.0.1/24"],
+                            "0000000000000005": ["4.5.0.2/24", "5.6.0.1/24"],
+                            "0000000000000006": ["5.6.0.2/24", "6.7.0.1/24"],
+                            "0000000000000007": ["6.7.0.2/24", "7.8.0.1/24", "13.7.0.2/24"],
+                            "0000000000000008": ["7.8.0.2/24", "8.9.0.1/24", "22.8.0.2/24"],
+                            "0000000000000009": ["8.9.0.2/24", "9.10.0.1/24", "24.9.0.2/24"],
+                            "0000000000000010": ["9.10.0.2/24", "18.10.0.2/24", "10.1.2.1/24"],
+                            "0000000000000011": ["1.11.0.2/24", "11.12.0.1/24", "11.26.0.1/24"],
+                            "0000000000000012": ["11.12.0.2/24", "12.13.0.1/24", "12.28.0.1/24"],
+                            "0000000000000013": ["12.13.0.2/24", "13.7.0.1/24", "13.14.0.1/24"],
+                            "0000000000000014": ["13.14.0.2/24", "14.15.0.1/24"],
+                            "0000000000000015": ["14.15.0.2/24", "15.16.0.1/24"],
+                            "0000000000000016": ["4.16.0.2/24", "15.16.0.2/24", "16.17.0.1/24"],
+                            "0000000000000017": ["16.17.0.2/24", "17.18.0.1/24", "29.17.0.2/24"],
+                            "0000000000000018": ["17.18.0.2/24", "18.10.0.1/24", "31.18.0.2/24"],
+                            "0000000000000019": ["2.19.0.2/24", "19.20.0.1/24"],
+                            "0000000000000020": ["19.20.0.2/24", "20.21.0.1/24", "20.25.0.1/24"],
+                            "0000000000000021": ["3.21.0.2/24", "20.21.0.2/24", "21.22.0.1/24"],
+                            "0000000000000022": ["21.22.0.2/24", "22.8.0.1/24", "22.23.0.1/24"],
+                            "0000000000000023": ["22.23.0.2/24", "23.24.0.1/24", "25.23.0.2/24"],
+                            "0000000000000024": ["23.24.0.2/24", "24.9.0.1/24"],
+                            "0000000000000025": ["20.25.0.2/24", "25.23.0.1/24"],
+                            "0000000000000026": ["11.26.0.2/24", "26.27.0.1/24"],
+                            "0000000000000027": ["26.27.0.2/24", "27.28.0.1/24", "27.32.0.1/24"],
+                            "0000000000000028": ["12.28.0.2/24", "27.28.0.2/24", "28.29.0.1/24"],
+                            "0000000000000029": ["28.29.0.1/24", "29.17.0.1/24", "29.30.0.1/24"],
+                            "0000000000000030": ["29.30.0.2/24", "30.31.0.1/24", "32.30.0.2/24"],
+                            "0000000000000031": ["30.31.0.2/24", "31.18.0.1/24"],
+                            "0000000000000032": ["27.32.0.2/24", "32.30.0.1/24"]}
 
             posli_adresy(zariadenia4)
             self.adresy = zariadenia4
@@ -335,12 +383,8 @@ class RestRouterAPI(app_manager.RyuApp):
             zariadenia2 = {"0000000000000001": {"10.1.2.0/24": "172.16.0.2", "10.1.3.0/24": "172.16.0.2"},
                            "0000000000000002": {"10.1.1.0/24": "172.16.0.1"}}
 
-            zariadenia4 = {"0000000000000001": {"10.1.2.0/24": "172.16.0.2", "10.1.3.0/24": "172.16.0.2",
-                                                "10.1.2.0/24": "172.16.0.6"},
-                           "0000000000000002": {"10.1.1.0/24": "172.16.0.1", "10.1.1.0/24": "172.16.0.11"},
-                           "0000000000000003": {"10.1.1.0/24": "172.16.0.5", "10.1.2.0/24": "172.16.0.14"},
-                           "0000000000000004": {"10.1.1.0/24": "172.16.0.13", "10.1.2.0/24": "172.16.0.10"}}
-            #posli_routy(zariadenia2)
+
+            # posli_routy(zariadenia2)
             # print "janooo", call_curl(obsah, device_id)
             # print self.wsgi.registory['RouterController']
             # print os.system("curl -X POST -d '{\"address\": \"10.1.2.1/24\"}' http://localhost:8080/router/0000000000000002")
@@ -369,16 +413,16 @@ class RestRouterAPI(app_manager.RyuApp):
             for id_zariadenia, val in zariadenia.items():
                 device_id = id_zariadenia
                 for siet, gw in val.items():
-                    #print set_routes(siet, gw)
-                    #print "[Cont] |||||||||||||||||", call_curl("POST ", set_routes(siet, gw), device_id)
+                    # print set_routes(siet, gw)
+                    # print "[Cont] |||||||||||||||||", call_curl("POST ", set_routes(siet, gw), device_id)
                     call_curl("POST ", set_routes(siet, gw), device_id)
 
         def _make_request(url, data, method):
             call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
-            #print "[Cont] ||||||||||||||||", call_curl("DELETE", del_routes("all"), "0000000000000001")
+            # print "[Cont] ||||||||||||||||", call_curl("DELETE", del_routes("all"), "0000000000000001")
             opener = urllib2.build_opener(urllib2.HTTPHandler)
             request = urllib2.Request(url, data=data)
-            #request.add_header('Content-Type', 'your/contenttype')
+            # request.add_header('Content-Type', 'your/contenttype')
             request.get_method = lambda: method
             url = opener.open(request)
             print url
@@ -410,45 +454,44 @@ class RestRouterAPI(app_manager.RyuApp):
 
         def zmaz_routy(zariadenia):
 
+            # for id_zariadenia, val in zariadenia.items():
+            # device_id = id_zariadenia
+            # print "[Cont] ||||||||||||||||", call_curld(del_routes("1"), id_zariadenia)
+            # call(["curl", "-X DELETE", "-d {\"route_id\": \"5\"}", "http://localhost:8080/router/0000000000000001"])
+            # call(["curl", "-X DELETE", "-d {\"route_id\": \"1\"}", "http://localhost:8080/router/0000000000000001"])
+            # print "[Cont] ||||||||||||||||", call_curl("DELETE ", del_routes("2"), id_zariadenia)
+            # print "#######################3---------------------################", check_output('curl -X DELETE -d {"route_id": 1 } http://localhost:8080/router/0000000000000001', shell=True)
 
-            #for id_zariadenia, val in zariadenia.items():
-                #device_id = id_zariadenia
-                #print "[Cont] ||||||||||||||||", call_curld(del_routes("1"), id_zariadenia)
-                #call(["curl", "-X DELETE", "-d {\"route_id\": \"5\"}", "http://localhost:8080/router/0000000000000001"])
-                #call(["curl", "-X DELETE", "-d {\"route_id\": \"1\"}", "http://localhost:8080/router/0000000000000001"])
-                #print "[Cont] ||||||||||||||||", call_curl("DELETE ", del_routes("2"), id_zariadenia)
-                #print "#######################3---------------------################", check_output('curl -X DELETE -d {"route_id": 1 } http://localhost:8080/router/0000000000000001', shell=True)
+            print
+            print
+            print
+            print "#######################3---------------------################"
 
-                print
-                print
-                print
-                print "#######################3---------------------################"
+            print  # "[DELETE]", _make_request("http://localhost:8080/router/all", "{\"route_id\": \"all\"}", "DELETE")
+            print
+            # print "[GET]", call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
 
-                print #"[DELETE]", _make_request("http://localhost:8080/router/all", "{\"route_id\": \"all\"}", "DELETE")
-                print
-                #print "[GET]", call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
+            print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            joj = subprocess.Popen('/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh')
+            return joj.pid
+            # os.system("/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh")
+            # print "[DELETE]", call(["curl", "-X DELETE", "-d {\"route_id\": \"all\"}", "-v", "http://localhost:8080/router/all", "--trace-ascii", "/dev/stdout"]) #"http://localhost:8080/router/all"])
 
-                print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                joj = subprocess.Popen('/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh')
-                return joj.pid
-                #os.system("/media/floodlight/home/ryu/virt_ryu_3_16/jano.sh")
-                #print "[DELETE]", call(["curl", "-X DELETE", "-d {\"route_id\": \"all\"}", "-v", "http://localhost:8080/router/all", "--trace-ascii", "/dev/stdout"]) #"http://localhost:8080/router/all"])
+            # print "[DELETE]", _make_request1("http://localhost:8080/router/all", "{\"route_id\": \"all\"}", "DELETE")
 
-                #print "[DELETE]", _make_request1("http://localhost:8080/router/all", "{\"route_id\": \"all\"}", "DELETE")
-
-                #print "[DELETE]", call(["curl", "-X DELETE", "-d {\"route_id\": \"all\"}", "-v", "http://localhost:8080/router/all","--trace-ascii", "/dev/stdout"])  # "http://localhost:8080/router/all"])
+            # print "[DELETE]", call(["curl", "-X DELETE", "-d {\"route_id\": \"all\"}", "-v", "http://localhost:8080/router/all","--trace-ascii", "/dev/stdout"])  # "http://localhost:8080/router/all"])
 
 
-                print
-                print
-                print
-                print
-                #print "[GET]", call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
-                print
-                print
-                print
-                print
-                print
+            print
+            print
+            print
+            print
+            # print "[GET]", call(["curl", "-X GET", "http://localhost:8080/router/0000000000000001"])
+            print
+            print
+            print
+            print
+            print
 
             # 3. delete address data or routing data.
             #
@@ -465,9 +508,7 @@ class RestRouterAPI(app_manager.RyuApp):
             #
 
 
-                #print "#######################3---------------------################", os.system('curl -X DELETE -d "{\"route_id\": \"1\" }" http://localhost:8080/router/0000000000000001')
-
-
+            # print "#######################3---------------------################", os.system('curl -X DELETE -d "{\"route_id\": \"1\" }" http://localhost:8080/router/0000000000000001')
 
         def set_routes(siet, gw):
             return "\"destination\": \"" + siet + "\", " + "\"gateway\": \"" + gw + "\""
@@ -495,7 +536,6 @@ class RestRouterAPI(app_manager.RyuApp):
             else:
                 routes_list[device_id] = prvok
                 # print "ono: ", routes_list
-
 
         # osetrenie toho ze linka ma dva konce a preto sa vsetko deje dvojmo
         if not self.handluj:
@@ -580,7 +620,7 @@ class RestRouterAPI(app_manager.RyuApp):
                         # print "No keys found"
             print self.last_path
             print  path
-            if self.last_path != [] and self.last_path != path:
+            if self.last_path != [] and self.last_path != path and False:
                 # d = threading.Thread(name='block', target=zmaz_routy, args=(routes_list,))
                 # t = threading.Thread(name='block', target=posli_routy, args=(routes_list,))
                 # d.start()
@@ -608,20 +648,17 @@ class RestRouterAPI(app_manager.RyuApp):
                         if temper == 500:
                             break
 
-
-
             if path != [] and self.last_path != path:
                 posli_routy(routes_list)
 
             self.last_path = path
 
             print "-----------------------------------------------------------------------------------------------" + sys.version
-            #sys.dont_write_bytecode = False
+            # sys.dont_write_bytecode = False
             print sys.flags
             self.net.remove_edges_from(links_f)
             self.net.remove_edges_from([(99, 1, {'port': 1}), (1, 99, {'port': 2})])
             self.net.remove_edges_from([(100, 2, {'port': 1}), (2, 100, {'port': 2})])
-
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def packet_in_handler(self, ev):
@@ -928,7 +965,7 @@ class Router(dict):
     def delete_data(self, vlan_id, param, waiters):
         msgs = []
         vlan_routers = self._get_vlan_router(vlan_id)
-        #waiters = {1: {}, 2: {}, 3: {}, 4: {}}
+        # waiters = {1: {}, 2: {}, 3: {}, 4: {}}
         # print "tooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
         # print vlan_id
         # print vlan_routers
@@ -1272,10 +1309,10 @@ class VlanRouter(object):
 
         # Get all flow.
         msgs = self.ofctl.get_all_flow(waiters)
-        #print msgs, "\npotom\n", self
+        # print msgs, "\npotom\n", self
         delete_list = []
         for msg in msgs:
-            #print msg
+            # print msg
             for stats in msg.body:
                 vlan_id = VlanRouter._cookie_to_id(REST_VLANID, stats.cookie)
                 if vlan_id != self.vlan_id:
@@ -1290,7 +1327,7 @@ class VlanRouter(object):
 
         # Delete flow.
         delete_ids = []
-        #print delete_list
+        # print delete_list
         for flow_stats in delete_list:
             self.ofctl.delete_flow(flow_stats)
             route_id = VlanRouter._cookie_to_id(REST_ROUTEID,
