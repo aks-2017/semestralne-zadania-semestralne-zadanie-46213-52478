@@ -1,0 +1,30 @@
+Nov 28 01:55:10.522 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Nov 28 01:55:10.523 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 61322.
+Nov 28 01:55:11.022 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 28 01:55:11.023 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\16_topo\project-files\dynamips 
+Nov 28 01:55:11.023 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\16_topo\project-files\dynamips
+Nov 28 01:55:11.023 HYPERVISOR: exec_cmd: hypervisor working_dir D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\16_topo\project-files\dynamips\bb7e3d52-cf34-4d97-ab89-eb8767bde05e 
+Nov 28 01:55:11.024 GENERAL: working_dir=D:\Documents\GitHub\semestralne-zadania-semestralne-zadanie-xchalachan-xguran\GNS3\16_topo\project-files\dynamips\bb7e3d52-cf34-4d97-ab89-eb8767bde05e
+Nov 28 01:55:11.024 HYPERVISOR: exec_cmd: vm create R11 11 c7200 
+Nov 28 01:55:11.025 VM: VM R11 created.
+Nov 28 01:55:11.026 HYPERVISOR: exec_cmd: vm set_con_tcp_port R11 5010 
+Nov 28 01:55:11.026 HYPERVISOR: exec_cmd: c7200 get_mac_addr R11 
+Nov 28 01:55:11.027 HYPERVISOR: exec_cmd: vm get_status R11 
+Nov 28 01:55:11.027 HYPERVISOR: exec_cmd: vm slot_add_binding R11 0 0 C7200-IO-FE 
+Nov 28 01:55:11.028 HYPERVISOR: exec_cmd: vm set_disk0 R11 0 
+Nov 28 01:55:11.028 HYPERVISOR: exec_cmd: vm set_exec_area R11 64 
+Nov 28 01:55:11.028 HYPERVISOR: exec_cmd: vm get_status R11 
+Nov 28 01:55:11.028 HYPERVISOR: exec_cmd: vm set_idle_pc R11 0x62cbf334 
+Nov 28 01:55:11.029 HYPERVISOR: exec_cmd: vm set_ios R11 C:/Users/Yak/GNS3/images/IOS/c7200-advipservicesk9-mz.152-4.S5.image 
+Nov 28 01:55:11.030 HYPERVISOR: exec_cmd: c7200 set_mac_addr R11 ca0b.3af0.0000 
+Nov 28 01:55:11.030 HYPERVISOR: exec_cmd: vm set_nvram R11 512 
+Nov 28 01:55:11.030 HYPERVISOR: exec_cmd: vm set_ram R11 512 
+Nov 28 01:55:11.030 HYPERVISOR: exec_cmd: vm get_status R11 
+Nov 28 01:55:11.031 HYPERVISOR: exec_cmd: vm slot_add_binding R11 1 0 PA-2FE-TX 
+Nov 28 01:55:11.051 HYPERVISOR: exec_cmd: vm get_status R11 
+Nov 28 01:55:11.053 HYPERVISOR: exec_cmd: vm extract_config R11 
+Nov 28 01:55:11.056 HYPERVISOR: exec_cmd: vm delete R11 
+Nov 28 01:55:11.056 VM: VM R11 destroyed.
+Nov 28 01:55:11.059 HYPERVISOR: exec_cmd: hypervisor stop 
+Nov 28 01:55:11.527 HYPERVISOR: Stopped.
+Nov 28 01:55:11.527 GENERAL: reset done.

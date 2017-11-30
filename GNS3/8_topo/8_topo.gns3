@@ -7,7 +7,7 @@
     "revision": 8,
     "scene_height": 1000,
     "scene_width": 2000,
-    "show_grid": true,
+    "show_grid": false,
     "show_interface_labels": true,
     "show_layers": false,
     "snap_to_grid": true,
@@ -329,7 +329,7 @@
         "nodes": [
             {
                 "compute_id": "local",
-                "console": 5034,
+                "console": 5000,
                 "console_type": "telnet",
                 "first_port_name": null,
                 "height": 45,
@@ -393,7 +393,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5035,
+                "console": 5001,
                 "console_type": "telnet",
                 "first_port_name": null,
                 "height": 45,
@@ -457,7 +457,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5036,
+                "console": 5002,
                 "console_type": "telnet",
                 "first_port_name": null,
                 "height": 45,
@@ -521,7 +521,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5037,
+                "console": 5003,
                 "console_type": "telnet",
                 "first_port_name": null,
                 "height": 45,
@@ -585,7 +585,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5038,
+                "console": 5004,
                 "console_type": "telnet",
                 "first_port_name": null,
                 "height": 45,
@@ -649,7 +649,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5039,
+                "console": 5005,
                 "console_type": "telnet",
                 "first_port_name": null,
                 "height": 45,
@@ -713,7 +713,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5040,
+                "console": 5006,
                 "console_type": "telnet",
                 "first_port_name": null,
                 "height": 45,
@@ -777,7 +777,7 @@
             },
             {
                 "compute_id": "local",
-                "console": 5041,
+                "console": 5007,
                 "console_type": "telnet",
                 "first_port_name": null,
                 "height": 45,
@@ -849,8 +849,8 @@
                     "rotation": 0,
                     "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
                     "text": "Ubuntu-1",
-                    "x": -1,
-                    "y": -25
+                    "x": -67,
+                    "y": -33
                 },
                 "name": "Ubuntu-1",
                 "node_id": "ff898d0c-a19f-4709-b5ed-9da6f348463a",
@@ -869,8 +869,8 @@
                 },
                 "symbol": ":/symbols/vbox_guest.svg",
                 "width": 65,
-                "x": -632,
-                "y": 45,
+                "x": -707,
+                "y": -254,
                 "z": 0
             },
             {
@@ -883,8 +883,8 @@
                     "rotation": 0,
                     "style": "font-family: TypeWriter;font-size: 10.0;font-weight: bold;fill: #000000;fill-opacity: 1.0;",
                     "text": "Ubuntu2-1",
-                    "x": -5,
-                    "y": -25
+                    "x": 56,
+                    "y": -40
                 },
                 "name": "Ubuntu2-1",
                 "node_id": "dad64806-6b87-4993-8b9f-b95e316393ca",
@@ -903,13 +903,13 @@
                 },
                 "symbol": ":/symbols/vbox_guest.svg",
                 "width": 65,
-                "x": -32,
-                "y": 45,
+                "x": 42,
+                "y": -254,
                 "z": 0
             }
         ]
     },
     "type": "topology",
     "version": "2.1.0",
-    "zoom": 141
+    "zoom": 100
 }
